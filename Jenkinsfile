@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 node {
+    env.PATH = "C:\\Program Files (x86)\\Git\\usr\\bin;C:\\Program Files (x86)\\Git\\bin;${env.PATH}"
     stage('checkout') {
         checkout scm
     }
