@@ -2,32 +2,32 @@
 
 node {
     env.PATH = "C:\\Program Files (x86)\\Git\\usr\\bin;C:\\Program Files (x86)\\Git\\bin;${env.PATH}"
-    stage('checkout') {
-        checkout scm
-    }
+    // stage('checkout') {
+    //     checkout scm
+    // }
 
-    stage('check java') {
-        sh "java -version"
-    }
+    // stage('check java') {
+    //     sh "java -version"
+    // }
 
-    stage('clean') {
-        sh "chmod +x gradlew"
-        sh "./gradlew clean --no-daemon"
-    }
+    // stage('clean') {
+    //     sh "chmod +x gradlew"
+    //     sh "./gradlew clean --no-daemon"
+    // }
 
-    stage('npm install') {
-        sh "./gradlew npm_install -PnodeInstall --no-daemon"
-    }
+    // stage('npm install') {
+    //     sh "./gradlew npm_install -PnodeInstall --no-daemon"
+    // }
 
-    stage('backend tests') {
-        try {
-            sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
-        } catch(err) {
-            throw err
-        } finally {
-            junit '**/build/**/TEST-*.xml'
-        }
-    }
+    // stage('backend tests') {
+    //     try {
+    //         sh "./gradlew test integrationTest -PnodeInstall --no-daemon"
+    //     } catch(err) {
+    //         throw err
+    //     } finally {
+    //         junit '**/build/**/TEST-*.xml'
+    //     }
+    // }
 
     stage('frontend tests') {
         try {
@@ -39,13 +39,13 @@ node {
         }
     }
 
-    stage('packaging') {
-        sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
-        archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
-    }
+    // stage('packaging') {
+    //     sh "./gradlew bootJar -x test -Pprod -PnodeInstall --no-daemon"
+    //     archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+    // }
 
-    stage('deployment') {
-        sh "./gradlew deployHeroku --no-daemon"
-    }
+    // stage('deployment') {
+    //     sh "./gradlew deployHeroku --no-daemon"
+    // }
 
 }
