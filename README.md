@@ -169,6 +169,10 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
+## Cloudfoundary deployment:
+
+    cf push -b https://github.com/cloudfoundry/java-buildpack.git -f .\deploy\cloudfoundry\manifest.yml -p .\build\libs\store-0.0.1-SNAPSHOT.jar
+
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
 [jhipster 6.2.0 archive]: https://www.jhipster.tech/documentation-archive/v6.2.0
 [using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.2.0/development/
