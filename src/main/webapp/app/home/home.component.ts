@@ -1,44 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
 
-import { LoginModalService, AccountService, Account } from 'app/core';
+import { Component } from '@angular/core';
+import { ChatShowcaseService } from './chat-showcase.service';
 
 @Component({
-  selector: 'jhi-home',
+  selector: 'nb-chat-showcase',
   templateUrl: './home.component.html',
-  styleUrls: ['home.scss']
+  providers: [ChatShowcaseService],
+  styles: [
+    `
+      ::ng-deep nb-layout-column {
+        justify-content: center;
+        display: flex;
+      }
+      nb-chat {
+        width: 500px;
+      }
+    `
+  ]
 })
-export class HomeComponent implements OnInit {
-  account: Account;
-  modalRef: NgbModalRef;
+export class HomeComponent {
+  messages: any[];
 
-  constructor(
-    private accountService: AccountService,
-    private loginModalService: LoginModalService,
-    private eventManager: JhiEventManager
-  ) {}
+  constructor(protected chatShowcaseService: ChatShowcaseService) {
+    console.log('Enter ChatShowcaseComponent constructor!!!');
+    this.messages = this.chatShowcaseService.loadMessages();
+  }
 
-  ngOnInit() {
-    this.accountService.identity().then((account: Account) => {
-      this.account = account;
+  sendMessage(event: any) {
+    const files = !event.files
+      ? []
+      : event.files.map(file => {
+          return {
+            url: file.src,
+            type: file.type,
+            icon: 'file-text-outline'
+          };
+        });
+
+    this.messages.push({
+      text: event.message,
+      date: new Date(),
+      reply: true,
+      type: files.length ? 'file' : 'text',
+      files: files,
+      user: {
+        name: 'Jonh Doe',
+        avatar: 'https://i.gifer.com/no.gif'
+      }
     });
-    this.registerAuthenticationSuccess();
-  }
-
-  registerAuthenticationSuccess() {
-    this.eventManager.subscribe('authenticationSuccess', message => {
-      this.accountService.identity().then(account => {
-        this.account = account;
-      });
-    });
-  }
-
-  isAuthenticated() {
-    return this.accountService.isAuthenticated();
-  }
-
-  login() {
-    this.modalRef = this.loginModalService.open();
+    const botReply = this.chatShowcaseService.reply(event.message);
+    if (botReply) {
+      setTimeout(() => {
+        this.messages.push(botReply);
+      }, 500);
+    }
   }
 }

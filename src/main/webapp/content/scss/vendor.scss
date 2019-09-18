@@ -11,4 +11,11 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 @import '~bootswatch/dist/darkly/bootswatch';
 
+// nebular theme
+@import 'nebular-themes';
+@import '~@nebular/theme/styles/globals';
+@include nb-install() {
+  @include nb-theme-global();
+}
+
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */

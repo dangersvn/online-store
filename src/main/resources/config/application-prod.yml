@@ -32,10 +32,11 @@ spring:
     livereload:
       enabled: false
   datasource:
+    driver: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/store?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password:
+    url: jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/ad_037c0055dea7afe?user=b9025db26217e0&password=bf20e316 #jdbc:mysql://localhost:3306/store?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: b9025db26217e0
+    password: bf20e316
     hikari:
       poolName: Hikari
       auto-commit: false
