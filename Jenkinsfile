@@ -54,7 +54,7 @@ node {
 
                     sh '/usr/local/bin/cf login -a http://api.run.pivotal.io -u $USERNAME -p $PASSWORD'
                     // sh '/usr/local/bin/cf push'
-                    sh 'cf push -b https://github.com/cloudfoundry/java-buildpack.git -f .\deploy\cloudfoundry\manifest.yml -p .\build\libs\store-0.0.1-SNAPSHOT.jar'
+                    sh 'cf push -b https://github.com/cloudfoundry/java-buildpack.git -f ./deploy/cloudfoundry/manifest.yml -p ./build/libs/store-0.0.1-SNAPSHOT.jar'
                 }
             }
 
